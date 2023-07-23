@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PRINT JOBCARD</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20pt;
+        padding-bottom: 0;
+        }
+        .section-box {
+            border: 1px solid black;
+            padding: 15px;
+            margin-bottom: 5px;
+        }
+        .section-title {
+            font-weight: bold;
+            text-align: center;
+            font-size: 14pt;
+            margin-bottom: 10pt;
+        }
+        .section-data {
+            font-size: 12pt;
+            margin-bottom: 5pt;
+            padding: 15px;
+        }
+        .logo {
+            text-align: center;
+            padding-bottom: 0;
+        }
+        .logo img {
+            width: 201px;
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="../staticfiles/logo.png" alt="Company Logo">
+        <h1>{{ job_card.job_number }}</h1>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">Customer Information</div>
+        <div class="section-data">
+            <strong>Name:</strong> {{ job_card.customer.name }}<br />
+            <strong>Contact Number:</strong> {{ job_card.customer.contact_number }}<br />
+            <strong>Email:</strong> {{ job_card.customer.email }}<br />
+            <strong>Address:</strong> {{ job_card.customer.address }}<br />
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">Job Information</div>
+        <div class="section-data">
+            <strong>Product Name:</strong> {{ job_card.product_name }}<br />
+            <strong>Serial Number:</strong> {{ job_card.serial_number }}<br />
+            <strong>Job Type:</strong> {{ job_card.get_job_type_display }}<br />
+            <strong>Complaint or Query:</strong> {{ job_card.complaint_or_query }}<br />
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">Service Centre Information</div>
+        <div class="section-data">
+            <strong>Address:</strong> 123 Main Street, City<br />
+            <strong>Email:</strong> service@mrecenter.com<br />
+            <strong>Telephone:</strong> 123-456-7890<br />
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">Repair Information</div>
+        <div class="section-data">
+            <strong>Fault Code:</strong> {{ job_card.fault_code }}<br />
+            <strong>Error Code:</strong> {{ job_card.error_code }}<br />
+            <strong>Technician Assessment:</strong> {{ job_card.technician_assessment }}<br />
+            <strong>Technician Notes:</strong> {{ job_card.technician_notes }}<br />
+            <strong>Assigned Technician:</strong> {{ job_card.assigned_technician }}<br />
+            <strong>Date Completed:</strong> {{ job_card.closed_at }}<br />
+            <strong>Closed by:</strong> {{ job_card.closed_by }}<br />
+        </div>
+    </div>
+</body>
+</html>
