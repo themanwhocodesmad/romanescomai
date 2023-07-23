@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRE Service Centre</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        #sidebar {
+    position: fixed;  /* this makes it stay in place */
+    width: 200px;
+    height: 100vh;  /* occupy the full viewport height */
+    background-color: #a3baa7;
+    color: white;
+    padding: 10px;
+    overflow-y: auto;  /* add a scroll if content is longer than the viewport */
+}
+
+    #main-content {
+        flex: 1;
+        padding: 20px;
+        margin-left: 210px;  /* compensating for the sidebar width and some padding */
+        height: 100vh;  /* occupy the full viewport height */
+        overflow-y: auto;  /* make it scrollable */
+    }
+
+
+        #sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+        }
+
+        #sidebar a:hover {
+            background-color: #33a64a;
+        }
+
+        .logo {
+            width: 100%; /* Adjust as needed */
+            max-width: 150px; /* Adjust as needed */
+            margin-bottom: 10px;
+        }
+    </style>
+
+    {% block head_extra %}
+    <!-- Any additional styles or scripts from child templates will render here -->
+    {% endblock %}
+</head>
+
+<body>
+    <nav id="sidebar" role="navigation">
+        <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="logo">
+        <h2>Menu</h2>
+        <hr>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'create_job' %}">Create JobCard</a>
+        <a href="{% url 'open_job_cards' %}">Open JobCards</a>
+        <hr>
+        <a href="{% url 'add_rma' %}">Create RMA</a>
+        <a href="{% url 'open_rmas' %}">Open RMAs</a>
+        <hr>
+        <a href="{% url 'add_product' %}">Add Products</a>
+        <a href="{% url 'add_error_code' %}">Add Error Codes</a>
+        <a href="{% url 'add_vendor' %}">Add Vendors</a>
+        <a href="{% url 'add_region' %}">Add Regions</a>
+        <hr>
+        <a href="{% url 'logout' %}">Logout</a>
+
+
+        <!-- Add more navigation links here as needed -->
+    </nav>
+
+    <main id="main-content" role="main">
+        {% block content %}
+        <!-- Content from child templates will render here -->
+        {% endblock %}
+    </main>
+
+    <!-- Bootstrap and related JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

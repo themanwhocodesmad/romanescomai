@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Magneto Renewable Energy RMA Form</h2>
+<h3>Repair Material Authorization Form: Test/Repair/ Warranty Replacement</h3>
+
+<form action="/submit" method="post">
+  <label for="rma">RMA / Tracking Number:</label><br>
+  <input type="text" id="rma" name="rma"><br>
+
+  <label for="service_centre">Service Centre:</label><br>
+  <input type="text" id="service_centre" name="service_centre" value="JHB"><br>
+
+  <label for="date_returned">Date Returned to the Hub:</label><br>
+  <input type="date" id="date_returned" name="date_returned"><br>
+
+  <label for="company_name">Company Name:</label><br>
+  <input type="text" id="company_name" name="company_name"><br>
+
+  <label for="contact_person">Contact Person:</label><br>
+  <input type="text" id="contact_person" name="contact_person"><br>
+
+  <label for="contact_number">Contact Number:</label><br>
+  <input type="tel" id="contact_number" name="contact_number"><br>
+
+  <label for="email_address">Email Address:</label><br>
+  <input type="email" id="email_address" name="email_address"><br>
+
+  <label for="inv_no">INV No:</label><br>
+  <input type="text" id="inv_no" name="inv_no"><br>
+
+  <label for="inv_date">INV Date:</label><br>
+  <input type="date" id="inv_date" name="inv_date"><br>
+
+  <label for="item_code">Item Code:</label><br>
+  <input type="text" id="item_code" name="item_code"><br>
+
+  <label for="serial_no">Serial No:</label><br>
+  <input type="text" id="serial_no" name="serial_no"><br>
+
+  <label for="package_condition">Condition of Package:</label><br>
+  <input type="text" id="package_condition" name="package_condition"><br>
+
+  <label for="goods_condition">Condition of Goods:</label><br>
+  <input type="text" id="goods_condition" name="goods_condition"><br>
+
+  <p>Action:</p>
+  <input type="radio" id="repair" name="action" value="repair">
+  <label for="repair">Repair</label><br>
+  <input type="radio" id="replace" name="action" value="replace">
+  <label for="replace">Replace</label><br>
+  <input type="radio" id="refund" name="action" value="refund">
+  <label for="refund">Refund</label><br>
+
+  <label for="reason">Reason for return & description of application good is used for / details of fault experienced:</label><br>
+  <textarea id="reason" name="reason" rows="4" cols="50"></textarea><br>
+
+  <label for="customer_name">Customer Name:</label><br>
+  <input type="text" id="customer_name" name="customer_name"><br>
+
+  <label for="customer_signature">Customer Signature:</label><br>
+  <input type="text" id="customer_signature" name="customer_signature"><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

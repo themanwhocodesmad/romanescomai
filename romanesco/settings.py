@@ -45,6 +45,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
+    'webapp.apps.WebappConfig',
+    'resources',
+    'rma',
+    'bootstrap4',
+'widget_tweaks',
+    #'channels',
+    #'notifications'
 ]
 
 REST_FRAMEWORK = {
@@ -76,7 +83,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'romanesco.urls'
-EFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -109,8 +116,8 @@ AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with yo
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, '../static')]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 
@@ -198,4 +205,3 @@ DATABASES = {
         'PORT': '5962',
     }
 }
-

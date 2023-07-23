@@ -1,56 +1,79 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
     <title>PRINT JOBCARD</title>
     <style type="text/css">
+        /* General Resets */
         * {
             margin: 0;
             padding: 0;
-            text-indent: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            font-size: 12pt;
-        }
-        h1 {
-            text-align: center;
-            font-weight: bold;
-            font-size: 20pt;
-        padding-bottom: 0;
-        }
-        .section-box {
-            border: 1px solid black;
-            padding: 15px;
-            margin-bottom: 5px;
-        }
-        .section-title {
-            font-weight: bold;
-            text-align: center;
+            padding: 20px;
             font-size: 14pt;
-            margin-bottom: 10pt;
+            color: #333;
+            line-height: 1.5;
         }
-        .section-data {
-            font-size: 12pt;
-            margin-bottom: 5pt;
-            padding: 15px;
-        }
+
+        /* Logo and Job Number Styling */
         .logo {
             text-align: center;
-            padding-bottom: 0;
+            margin-bottom: 20px;
         }
+
         .logo img {
             width: 201px;
-            height: 80px;
+            height: auto;
+        }
+
+        .job-number {
+            text-align: center;
+            font-weight: bold;
+            font-size: 24pt;
+            margin-top: 10px;
+            border-bottom: 3px solid #333;
+            padding-bottom: 5px;
+        }
+
+        /* Sections Styling */
+        .section-box {
+            border: 1px solid #888;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16pt;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .section-data strong {
+            color: #555;
+            font-weight: 600;
         }
     </style>
 </head>
+
 <body>
+    <!-- Logo and Job Number Section -->
     <div class="logo">
         <img src="../staticfiles/logo.png" alt="Company Logo">
-        <h1>{{ job_card.job_number }}</h1>
+        <div class="job-number">{{ job_card.job_number }}</div>
     </div>
 
+    <!-- Customer Information -->
     <div class="section-box">
         <div class="section-title">Customer Information</div>
         <div class="section-data">
@@ -61,6 +84,7 @@
         </div>
     </div>
 
+    <!-- Job Information -->
     <div class="section-box">
         <div class="section-title">Job Information</div>
         <div class="section-data">
@@ -71,15 +95,25 @@
         </div>
     </div>
 
+    <!-- Service Centre Information -->
     <div class="section-box">
         <div class="section-title">Service Centre Information</div>
         <div class="section-data">
-            <strong>Address:</strong> 123 Main Street, City<br />
-            <strong>Email:</strong> service@mrecenter.com<br />
-            <strong>Telephone:</strong> 123-456-7890<br />
-        </div>
+                <p><strong>Address:</strong> Office 3 Rydallviews
+
+5A Rydall Vale Office Park
+
+38 Ridge Douglas Saunders Dr
+
+La Lucia Ridge, 4051
+
+KwaZulu Natal, South Africa</p>
+                <p><strong>Web:</strong> www.magnetoenergy.co.za</p>
+                <p><strong>Telephone:</strong> +27 (087) 821 2600 </p>
+            </div>
     </div>
 
+    <!-- Repair Information -->
     <div class="section-box">
         <div class="section-title">Repair Information</div>
         <div class="section-data">
@@ -90,7 +124,9 @@
             <strong>Assigned Technician:</strong> {{ job_card.assigned_technician }}<br />
             <strong>Date Completed:</strong> {{ job_card.closed_at }}<br />
             <strong>Closed by:</strong> {{ job_card.closed_by }}<br />
+            <strong>Date Closed:</strong> {{ job_card.closed_at }}<br />
         </div>
     </div>
 </body>
+
 </html>

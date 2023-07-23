@@ -25,16 +25,18 @@ class CustomUser(AbstractUser):
 
     TECHNICAL_ADMIN = 'Technical Admin'
     FIELD_TECHNICIAN = 'Field Technician'
+    HUB_CONTROLLER = 'Hub Controller'
 
     ROLE_CHOICES = [
         (TECHNICAL_ADMIN, 'Technical Admin'),
         (FIELD_TECHNICIAN, 'Field Technician'),
+        (HUB_CONTROLLER, 'Hub Controller'),
     ]
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, null=True, blank=True)
     cell_number = models.CharField(max_length=15, null=True, blank=True)  # Add the cell_number field here
     service_center = models.CharField(max_length=100, choices=SERVICE_CENTERS, null=True, blank=True)
-
+    telegram_ChatID = models.CharField(max_length=100, choices=SERVICE_CENTERS, null=True, blank=True)
     @property
     def assigned_jobs(self):
         return JobCard.objects.filter(assigned_technician=self.username).count()

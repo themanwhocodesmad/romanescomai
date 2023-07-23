@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<!-- User Details Section -->
+<div class="card mb-4">
+    <div class="card-header">
+        User Details
+    </div>
+    <div class="card-body">
+        <p class="mb-1"><strong>Name:</strong> {{ user.full_name }}</p>
+        <p class="mb-1"><strong>Role:</strong> {{ user.role }}</p>
+        <p class="mb-1"><strong>Service Centre:</strong> {{ user.service_center }}</p>
+    </div>
+</div>
+
+<!-- Job Statistics Section -->
+<div class="card">
+    <div class="card-header">
+        Job Statistics
+    </div>
+    <div class="card-body">
+        <p class="mb-1"><strong>Total Jobs:</strong> {{ total_jobs }}</p>
+        <p class="mb-1"><strong>Closed Jobs:</strong> {{ closed_jobs }}</p>
+        <p class="mb-1"><strong>Open Jobs:</strong> {{ open_jobs }}</p>
+        <p class="mb-1"><strong>Out of SLA Jobs:</strong> {{ out_of_sla_jobs }}</p>
+    </div>
+</div>
+
+    <!-- RMA Statistics Section -->
+<div class="card mb-4">
+    <div class="card-header">
+        RMA Statistics
+    </div>
+    <div class="card-body">
+        <p class="mb-1"><strong>Total RMAs:</strong> {{ total_rmas }}</p>
+        <p class="mb-1"><strong>Closed RMAs:</strong> {{ closed_rmas }}</p>
+        <p class="mb-1"><strong>In Transit RMAs:</strong> {{ in_transit_rmas }}</p>
+    </div>
+</div>
+
+{% endblock %}

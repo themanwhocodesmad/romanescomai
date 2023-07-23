@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    legend {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #555;
+    }
+
+    fieldset {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+</style>
+<script>
+    function redirectToCloseJob() {
+    window.location.href = "{% url 'close_job_card' job_card.id %}";
+}
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Edit Job Card: {{ job_card.job_number }}</h2>
+    </div>
+
+    <form method="post" id="edit-job-form">
+        {% csrf_token %}
+
+        <fieldset class="mb-4">
+            <legend>Customer Information</legend>
+            {% for field in customer_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset class="mb-4">
+            <legend>Job Card Details</legend>
+            {% for field in job_card_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-danger" onclick="redirectToCloseJob()">Close Job</button>
+
+        </div>
+    </form>
+</div>
+
+{% endblock %}

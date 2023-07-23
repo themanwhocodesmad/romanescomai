@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        width: 45%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: auto;
+    }
+
+    .centered-form {
+        max-width: 600px;  /* Set this as per your requirement */
+        margin: auto;  /* This will center the form */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Add Vendor</h2>
+    </div>
+
+    <form method="post" class="centered-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group text-center">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+        </div>
+        {% endfor %}
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Add Vendor</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

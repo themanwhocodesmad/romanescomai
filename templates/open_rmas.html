@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+    .distinct-card {
+        border: 2px solid #333;  <!-- Change the color and width as needed -->
+        border-radius: 10px;  <!-- Making the rounded edges a bit more prominent -->
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);  <!-- Adding a slight shadow to enhance the distinction -->
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        {% for rma in rm_as %}
+        <div class="col-md-4 mb-4">
+            <div class="card distinct-card">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ rma.rma_number }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted font-weight-bold">Service Centre: {{ rma.service_centre }}</h6>
+                    <h6 class="card-text">Company: {{ rma.company_name }}</h6>
+                    <!-- Add more fields as needed, such as the following -->
+                    <h6 class="card-text">Product Name: {{ rma.product_name }}</h6>
+                    <h6 class="card-text">Reason for Return: {{ rma.reason }}</h6>
+                    <h6 class="card-text">Receiced at Warehouse: {{ rma.received_at_warehouse }}</h6>
+
+                    <a href="{% url 'edit_rma' rma.id %}" class="btn btn-primary">Edit RMA</a>
+                    <a href="{% url 'convert_rma' rma.id %}" class="btn btn-success">Convert RMA</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

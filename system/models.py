@@ -1,5 +1,5 @@
-import os
 from datetime import datetime, timedelta
+
 from django.db import models
 from django.utils import timezone
 
@@ -58,7 +58,7 @@ class JobCard(models.Model):
     )
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    complaint_or_query = models.TextField(blank=True, null=True)
+    complaint_or_query = models.CharField(max_length=100,blank=True, null=True)
     error_code = models.CharField(max_length=50, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_of_query = models.DateField(blank=True, null=True)
@@ -68,14 +68,14 @@ class JobCard(models.Model):
     product_name = models.CharField(max_length=100)
     serial_number = models.CharField(max_length=50, blank=True, null=True)
     date_of_technician_assessment = models.DateField(blank=True, null=True)
-    technician_assessment = models.TextField(blank=True, null=True)
-    technician_notes = models.TextField(blank=True, null=True)
-    additional_notes = models.TextField(blank=True, null=True)
+    technician_assessment = models.CharField(max_length=100,blank=True, null=True)
+    technician_notes = models.CharField(max_length=500,blank=True, null=True)
+    additional_notes = models.CharField(max_length=500,blank=True, null=True)
     fault_code = models.CharField(max_length=5, blank=True, null=True)
     repair_type = models.CharField(max_length=50, blank=True, null=True)
     assigned_technician = models.CharField(max_length=50, blank=True, null=True)
     job_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Open")
-    resolution = models.TextField(blank=True, null=True)
+    resolution = models.CharField(max_length=500, blank=True, null=True)
     last_modified_by = models.CharField(max_length=50, blank=True, null=True)
     last_modified_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length=50, blank=True, null=True)
@@ -85,9 +85,9 @@ class JobCard(models.Model):
     job_number = job_numberField(unique=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default="Medium")
     job_type = models.CharField(max_length=15, choices=JOB_TYPE_CHOICES, default="Repair")
-    service_location = models.TextField(blank=True, null=True)
+    service_location = models.CharField(max_length=50, blank=True, null=True)
     follow_up_required = models.BooleanField(default=False)
-    
+
     survey_completed = models.BooleanField(default=False)
     customer_satisfaction = models.IntegerField(blank=True,
                                                 null=True)  # Could be a scale of 1-10 or any other method of rating.
@@ -126,7 +126,6 @@ def job_card_directory(instance, filename):
 
 
 class Image(models.Model):
-
     description = models.TextField(blank=True, null=True)
     job_card = models.ForeignKey(JobCard, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to=job_card_directory, blank=True, null=True)

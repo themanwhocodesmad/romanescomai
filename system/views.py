@@ -32,7 +32,7 @@ from .twilio_whatsapp.technician_notifications import send_whatsapp_message
 
 # noinspection PyMethodMayBeStatic
 class DashboardDataView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
@@ -131,8 +131,8 @@ class CreateNewJobView(APIView):
             assigned_technician = CustomUser.objects.get(username=job_card.assigned_technician)
             if assigned_technician.cell_number:  # Make sure technician has a contact number
                 # Now you can send the WhatsApp message
-                send_whatsapp_message(assigned_technician.first_name, job_card.job_number,
-                                      assigned_technician.cell_number)
+                # send_whatsapp_message(assigned_technician.first_name, job_card.job_number,assigned_technician.cell_number)
+                pass
 
             return Response({
                 'job_number': job_card.job_number  # Return job number
@@ -267,8 +267,8 @@ def DatabaseDownloadView(request):
             job_card.date_of_purchase.strftime('%Y-%m-%d') if job_card.date_of_purchase else 'Not yet provided',
             job_card.region, job_card.vendor_name, job_card.product_name, job_card.serial_number,
             job_card.fault_code, job_card.repair_type, job_card.assigned_technician,
-            job_card.assigned_time.strftime('%Y-%m-%d %H:%M:%S') if job_card.assigned_time else 'Not yet provided',
-            job_card.completed_time.strftime('%Y-%m-%d %H:%M:%S') if job_card.completed_time else 'Not yet provided'
+            job_card.assigned_date.strftime('%Y-%m-%d %H:%M:%S') if job_card.assigned_date else 'Not yet provided',
+            job_card.completed_date.strftime('%Y-%m-%d %H:%M:%S') if job_card.completed_date else 'Not yet provided'
         ]
         technician_data = [
             job_card.date_of_technician_assessment.strftime(
@@ -368,7 +368,7 @@ class UploadImagesView(APIView):
 
 class UserAssignedJobsList(generics.ListAPIView):
     serializer_class = JobCardSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -377,3 +377,5 @@ class UserAssignedJobsList(generics.ListAPIView):
             return JobCard.objects.filter(job_status="Open")
         else:
             return JobCard.objects.filter(assigned_technician=user, job_status="Open")
+            # return JobCard.objects.filter(job_status="Open")
+

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="success-message">
+        <p>Job created successfully!</p>
+        <button onclick="location.href='{% url 'dashboard' %}'">Dismiss</button>
+    </div>
+{% endblock %}

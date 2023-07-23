@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head_extra %}  <!-- Add this block if you have a block for extra head content in your base.html -->
+<style>
+    .distinct-card {
+        border: 2px solid #333;  <!-- Change the color and width as needed -->
+        border-radius: 10px;  <!-- Making the rounded edges a bit more prominent -->
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);  <!-- Adding a slight shadow to enhance the distinction -->
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        {% for card in open_cards %}
+        <div class="col-md-4 mb-4">
+            <!-- Apply the custom class -->
+            <div class="card distinct-card">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ card.job_number }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted font-weight-bold">{{ card.customer.name }}</h6>
+                    <h6 class="card-text">{{ card.product_name }}</h6>
+                    <h6 class="card-text">{{ card.complaint_or_query }}</h6>
+                    <h6 class="card-text"><strong>SLA Status:</strong> {{ card.sla_status }}</h6>
+                    <a href="{% url 'edit_job_card' card.id %}" class="btn btn-primary">Edit Job</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
