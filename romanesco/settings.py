@@ -21,14 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yy-ttj)!)cw(m1u&4k_)2np+pw5435tfeu*2o1+4g3byma=8zv'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['romanesco-production.up.railway.app', 'http://romanesco-production.up.railway.app', 'https://romanesco-production.up.railway.app']
 
 
 # Application definition
@@ -110,8 +108,12 @@ WSGI_APPLICATION = 'romanesco.wsgi.application'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with your actual app name
 
-# CORS_ALLOWED_ORIGINS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://romanesco-production.up.railway.app']
+CORS_ALLOWED_ORIGINS = ['https://romanesco-production.up.railway.app']
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -192,16 +194,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mreservicecentre@gmail.com'
 EMAIL_HOST_PASSWORD = 'caqywqtiltnwmwvd'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'lNqPM0E3eIxqUJxrMXWg',
-        'HOST': 'containers-us-west-198.railway.app',
-        'PORT': '5962',
+        'PASSWORD': 'bO5kpLVahsFd6UeNnAr8',
+        'HOST': 'containers-us-west-136.railway.app',
+        'PORT': '6973',
     }
 }

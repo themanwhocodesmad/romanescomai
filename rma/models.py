@@ -19,9 +19,13 @@ class RMA(models.Model):
         ('No Packaging', 'No Packaging')
     ]
     SERVICE_CENTRES = [
+        ('MRE Service Centre', 'MRE Service Centre'),
         ('Johannesburg Centre', 'Johannesburg Centre'),
         ('Durban Service Centre', 'Durban Service Centre'),
-        # ... add the others similarly
+        ('Bloemfontein Service Centre', 'Bloemfontein Service Centre'),
+        ('Cape Town Service Centre', 'Cape Town Service Centre'),
+        ('Middelburg Service Centre', 'Middelburg Service Centre'),
+        ('Polokwane Service Centre', 'Polokwane Service Centre')
     ]
     ACTIONS = [
         ('Repair', 'Repair'),
