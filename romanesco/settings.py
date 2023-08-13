@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-yy-ttj)!)cw(m1u&4k_)2np+pw5435tfeu*2o1+4g3byma=8zv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['romanesco-production.up.railway.app', 'http://romanesco-production.up.railway.app', 'https://romanesco-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
