@@ -111,9 +111,9 @@ AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with yo
 CSRF_TRUSTED_ORIGINS = ['https://romanesco-production.up.railway.app']
 CORS_ALLOWED_ORIGINS = ['https://romanesco-production.up.railway.app']
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
