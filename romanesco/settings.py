@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-yy-ttj)!)cw(m1u&4k_)2np+pw5435tfeu*2o1+4g3byma=8zv"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -108,8 +108,8 @@ WSGI_APPLICATION = 'romanesco.wsgi.application'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with your actual app name
 
-CSRF_TRUSTED_ORIGINS = ['https://romanesco-production.up.railway.app']
-CORS_ALLOWED_ORIGINS = ['https://romanesco-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['*']
+CORS_ALLOWED_ORIGINS = ['*']
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
