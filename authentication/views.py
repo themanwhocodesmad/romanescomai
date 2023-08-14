@@ -5,7 +5,6 @@ from knox.views import LoginView as KnoxLoginView
 from knox.views import LogoutView as KnoxLogoutView
 from rest_framework import generics
 from rest_framework import permissions, status
-from rest_framework import serializers
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -13,33 +12,17 @@ from rest_framework.response import Response
 from authentication.serializers import RegisterSerializer, ChangePasswordSerializer
 from .serializers import UserSerializer
 
+from rest_framework import serializers
+from knox.views import LoginView as KnoxLoginView
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+
 
 class LoginResponseSerializer(serializers.Serializer):
     token = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    role = serializers.CharField()
+    group = serializers.CharField()
     service_center = serializers.CharField()
-
-
-class LoginAPI(KnoxLoginView):
-    permission_classes = [permissions.AllowAny, ]
-
-    def post(self, request, format=None):
-        serializer = AuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-
-        data = {
-            'token': AuthToken.objects.create(user)[1],
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'role': user.role,
-            'service_center': user.service_center if user.service_center else None
-        }
-        serializer = LoginResponseSerializer(data)
-        return Response(serializer.data)
 
 
 class CustomKnoxLoginView(KnoxLoginView):
@@ -71,6 +54,18 @@ class RegisterAPI(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+
+
+# Login API
+# class LoginAPI(KnoxLoginView):
+#     permission_classes = [permissions.AllowAny, ]
+#
+#     def post(self, request, format=None):
+#         serializer = AuthTokenSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data['user']
+#         login(request, user)
+#         return super(LoginAPI, self).post(request, format=None)
 
 
 class LogoutView(KnoxLogoutView):
@@ -120,3 +115,23 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginAPI(KnoxLoginView):
+    permission_classes = [permissions.AllowAny, ]
+
+    def post(self, request, format=None):
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+
+        data = {
+            'token': AuthToken.objects.create(user)[1],
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'role': user.role,
+            'service_center': user.service_center if user.service_center else None
+        }
+        serializer = LoginResponseSerializer(data)
+        return Response(serializer.data)
