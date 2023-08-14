@@ -21,7 +21,7 @@ class LoginResponseSerializer(serializers.Serializer):
     token = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    group = serializers.CharField()
+    role = serializers.CharField()
     service_center = serializers.CharField()
 
 
