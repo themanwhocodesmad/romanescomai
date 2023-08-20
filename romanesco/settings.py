@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise'
+    'whitenoise',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'system.apps.SystemConfig',
