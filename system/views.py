@@ -2,30 +2,32 @@ import io
 from datetime import date
 from io import BytesIO
 
-import pandas as pd
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMessage
+from django.urls import reverse
+
+import pandas as pd
 from django.db.models import Count, Q
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.http import FileResponse
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
-from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 from rest_framework import status, generics
+
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from weasyprint import HTML
+from xhtml2pdf import pisa
 
 from authentication.models import CustomUser
 from .models import Image
 from .models import JobCard
 from .serializers import ImageSerializer, JobCardSerializerForJobCreation
 from .serializers import JobCardSerializer
+from .twilio_whatsapp.technician_notifications import send_whatsapp_message
 
 
 # noinspection PyMethodMayBeStatic
@@ -325,14 +327,14 @@ class DownloadJobCardView(View):
             'job_card': job_card,
         }
         html = template.render(context)
-        response = BytesIO()
+        result = BytesIO()
 
-        # Here, we use WeasyPrint to convert the HTML to PDF
-        HTML(string=html).write_pdf(response)
-
-        response.seek(0)
-        return FileResponse(response, content_type='application/pdf',
-                            as_attachment=True, filename=f'{job_number}.pdf')
+        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+        if not pdf.err:
+            return FileResponse(BytesIO(result.getvalue()), content_type='application/pdf',
+                                as_attachment=True, filename=f'{job_number}.pdf')
+        else:
+            return None
 
 
 # noinspection PyMethodMayBeStatic
