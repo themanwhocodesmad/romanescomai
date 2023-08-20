@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load widget_tweaks %}
 
 <head>
+    {% load static %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>PRINT JOBCARD</title>
@@ -39,7 +41,7 @@
 <body>
     <!-- Logo and Job Number Section -->
     <div class="logo mb-4">
-        <img src="../staticfiles/logo.png" alt="Company Logo" class="img-fluid">
+        <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="logo">
         <div class="job-number">{{ job_card.job_number }}</div>
     </div>
 
