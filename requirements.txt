@@ -114,6 +114,7 @@ uritemplate==4.1.1
 uritools==4.0.1
 urllib3<2.0
 webencodings==0.5.1
+WeasyPrint
 whitenoise==6.5.0
 xhtml2pdf==0.2.11
 XlsxWriter==3.1.2
