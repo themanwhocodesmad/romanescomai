@@ -15,7 +15,7 @@ def add_region(request):
             return redirect('success_page')  # replace with actual success url name
     else:
         form = RegionForm()
-    return render(request, 'add_region.html', {'form': form})
+    return render(request, 'functionality/add_region.html', {'form': form})
 
 
 def add_vendor(request):
@@ -26,7 +26,7 @@ def add_vendor(request):
             return redirect('success_page')  # replace with actual success url name
     else:
         form = VendorForm()
-    return render(request, 'add_vendor.html', {'form': form})
+    return render(request, 'functionality/add_vendor.html', {'form': form})
 
 
 def add_product(request):
@@ -37,7 +37,7 @@ def add_product(request):
             return redirect('success_page')  # replace with actual success url name
     else:
         form = ProductForm()
-    return render(request, 'add_product.html', {'form': form})
+    return render(request, 'functionality/add_product.html', {'form': form})
 
 
 def add_error_code(request):
@@ -48,4 +48,4 @@ def add_error_code(request):
             return redirect('success_page')  # replace with actual success url name
     else:
         form = ErrorCodeForm()
-    return render(request, 'add_error_code.html', {'form': form})
+    return render(request, 'functionality/add_error_code.html', {'form': form})

@@ -31,7 +31,7 @@ def edit_job_card(request, job_card_id):
             instance=job_card
         )
 
-    return render(request, 'edit_job_card.html', {
+    return render(request, 'jobcards/edit_job_card.html', {
         'customer_form': edit_customer_form,
         'job_card_form': edit_job_card_form,
         'job_card': job_card
@@ -40,4 +40,4 @@ def edit_job_card(request, job_card_id):
 
 def open_job_cards(request):
     open_cards = JobCard.objects.filter(job_status='Open')
-    return render(request, 'open_job_cards.html', {'open_cards': open_cards})
+    return render(request, 'jobcards/open_job_cards.html', {'open_cards': open_cards})

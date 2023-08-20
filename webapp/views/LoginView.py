@@ -22,7 +22,7 @@ def login_view(request):
             return redirect('dashboard')
         else:
             # If authentication failed, you can notify the user.
-            return render(request, 'login.html', {'error': 'Invalid credentials'})
+            return render(request, 'utility_pages/login.html', {'error': 'Invalid credentials'})
 
-    return render(request, 'login.html')
+    return render(request, 'utility_pages/login.html')
 

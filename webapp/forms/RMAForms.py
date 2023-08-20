@@ -15,6 +15,7 @@ class EditRMAForm(forms.ModelForm):
         model = RMA
         fields = '__all__'
 
+
 class ConvertRMAForm(forms.ModelForm):
     technician = forms.ModelChoiceField(
         queryset=CustomUser.objects.filter(role__in=[CustomUser.TECHNICAL_ADMIN, CustomUser.FIELD_TECHNICIAN]),
@@ -29,10 +30,11 @@ class ConvertRMAForm(forms.ModelForm):
 
 class RMAForm(forms.ModelForm):
     item_code = forms.ModelChoiceField(queryset=Products.objects.all(), label='Product Name')
+
     class Meta:
         model = RMA
-        fields = ['item_code','date_returned', 'company_name', 'contact_person','reason', 'customer_name',
+        fields = ['item_code', 'date_returned', 'company_name', 'contact_person', 'reason', 'customer_name',
                   'contact_number', 'email_address', 'inv_no', 'inv_date',
-                  'serial_no','package_condition', 'goods_condition', 'action','service_centre',
-                   'customer_signature', 'received_at_warehouse',
+                  'serial_no', 'package_condition', 'goods_condition', 'action', 'service_centre',
+                  'customer_signature', 'received_at_warehouse',
                   'converted_or_closed']

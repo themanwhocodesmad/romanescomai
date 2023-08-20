@@ -43,7 +43,7 @@ class RMA(models.Model):
     inv_no = models.CharField(max_length=200, null=True, blank=True)
     inv_date = models.DateField(null=True, blank=True)
     item_code = models.CharField(max_length=200, null=True, blank=True)
-    serial_no = models.OneToOneField(JobCard, max_length=200, null=True, blank=True, on_delete=models.CASCADE)
+    serial_no = models.CharField(max_length=200, null=True, blank=True)
     package_condition = models.CharField(max_length=200, choices=PACKAGE_CONDITIONS, null=True, blank=True)
     goods_condition = models.CharField(max_length=200, choices=GOOD_CONDITIONS, null=True, blank=True)
 

@@ -32,7 +32,7 @@ def convert_rma(request, rma_id):
     else:
         form = ConvertRMAForm(instance=rma)
 
-    return render(request, 'convert_rma.html', {'form': form, 'rma': rma})
+    return render(request, 'rma/convert_rma.html', {'form': form, 'rma': rma})
 
 
 # views.py
@@ -45,7 +45,7 @@ from django.shortcuts import render, redirect
 def open_rmas(request):
     rm_as = RMA.objects.filter(converted_or_closed=False)
     context = {'rm_as': rm_as}
-    return render(request, 'open_rmas.html', context)
+    return render(request, 'rma/open_rmas.html', context)
 
 
 # views.py
@@ -67,7 +67,7 @@ def edit_rma(request, rma_id):
     else:
         form = RMAForm(instance=rma)
 
-    return render(request, 'edit_rma.html', {'form': form})
+    return render(request, 'rma/edit_rma.html', {'form': form})
 
 
 def add_rma(request):
@@ -78,4 +78,4 @@ def add_rma(request):
             return redirect('success_page')  # replace with the actual success URL name
     else:
         form = RMAForm()
-    return render(request, 'add_rma.html', {'form': form})
+    return render(request, 'rma/add_rma.html', {'form': form})

@@ -25,4 +25,4 @@ def create_job(request):
         'job_form': job_form,
     }
 
-    return render(request, 'create_job.html', context)
+    return render(request, 'jobcards/create_job.html', context)

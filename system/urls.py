@@ -16,7 +16,7 @@ urlpatterns = [
     path('jobs/download/database/', DatabaseDownloadView, name='database-download'),
     path('jobs/download/jobcard/<str:job_number>/', DownloadJobCardView.as_view(), name='download-job-card'),
     path('jobs/pictures/upload/<str:job_number>/', UploadImagesView.as_view(), name='upload_images'),
-    path('jobs/open/', UserAssignedJobsList.as_view(), name='assigned_jobs'),
+    path('jobs/open/', UserAssignedJobsList.as_view(), name='`assigned_jobs'),
 
     # Customer survey
     path('review-form/<str:job_number>/', CustomerSatisfactionFormView.as_view(), name='customer-satisfaction'),

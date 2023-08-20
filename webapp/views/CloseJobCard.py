@@ -21,7 +21,7 @@ def close_job_card(request, job_card_id):
     else:
         form = CloseJobCardForm(instance=job_card)
 
-    return render(request, 'close_job_card.html', {
+    return render(request, 'jobcards/close_job_card.html', {
         'form': form,
         'job_card': job_card
     })
