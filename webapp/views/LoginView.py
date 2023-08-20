@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
@@ -5,17 +8,15 @@ from django.contrib.auth import authenticate, login
 
 from django.shortcuts import redirect
 from django.contrib.auth import logout
+from knox.models import AuthToken
+
+from webapp.forms import LoginForm
+
 
 def logout_view(request):
     logout(request)
     return redirect('login')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
-from knox.models import AuthToken
-from datetime import datetime, timedelta
-from .forms import LoginForm
 
 def login_view(request):
     if request.method == "POST":
