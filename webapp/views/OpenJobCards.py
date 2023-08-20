@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from system.models import JobCard
 
@@ -5,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from webapp.forms import EditCustomerForm, EditJobCardForm
 
-
+@login_required
 def edit_job_card(request, job_card_id):
     job_card = get_object_or_404(JobCard, id=job_card_id)
     customer = job_card.customer
@@ -38,6 +39,8 @@ def edit_job_card(request, job_card_id):
     })
 
 
+
+@login_required
 def open_job_cards(request):
     open_cards = JobCard.objects.filter(job_status='Open')
     return render(request, 'jobcards/open_job_cards.html', {'open_cards': open_cards})

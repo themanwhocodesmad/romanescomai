@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from webapp.forms import CustomerForm, JobCardForm
 
-
+@login_required
 def create_job(request):
     if request.method == "POST":
         customer_form = CustomerForm(request.POST)

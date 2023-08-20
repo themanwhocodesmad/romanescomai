@@ -107,6 +107,9 @@ AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with yo
 CSRF_TRUSTED_ORIGINS = ['https://romanesco-production.up.railway.app']
 CORS_ALLOWED_ORIGINS = ['https://romanesco-production.up.railway.app']
 
+LOGIN_URL = 'login'
+
+
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
@@ -116,7 +119,7 @@ CORS_ALLOWED_ORIGINS = ['https://romanesco-production.up.railway.app']
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 ROOT_URLCONF = 'romanesco.urls'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'
