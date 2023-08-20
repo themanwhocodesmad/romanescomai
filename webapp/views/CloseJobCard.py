@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone  # Importing timezone to set the current date and time
 
 from system.models import JobCard
 from webapp.forms import CloseJobCardForm
 
-
+@login_required
 def close_job_card(request, job_card_id):
     job_card = get_object_or_404(JobCard, id=job_card_id)
 
