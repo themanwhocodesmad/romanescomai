@@ -55,7 +55,7 @@ def login_view(request):
         # If it's a GET request or any other method, show the form
         form = LoginForm()
 
-    return render(request, 'utility_pages/login.html', {'form': form})
+    return render(request, 'utility_pages/login.html', )
 
 # def login_view(request):
 #     if request.method == 'POST':
