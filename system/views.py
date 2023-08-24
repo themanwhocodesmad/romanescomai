@@ -326,7 +326,7 @@ class DownloadJobCardView(View):
         context = {
             'job_card': job_card,
         }
-        html = template.render(context)
+        html = template.render(context, request=request).encode('utf-8')
         result = BytesIO()
 
         pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
