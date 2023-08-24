@@ -1,5 +1,6 @@
 import json
 
+
 class PrintRequestMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -47,6 +48,23 @@ class PrintRequestMiddleware:
         print(f"\n{'-' * 20} RESPONSE START {'-' * 20}")
         print(f"Response status code: {response.status_code}")
         print(f"Response content type: {response['Content-Type']}")
+
+        # If response content type is text-based, print the first 5 and last 5 lines
+        if any(ct in response['Content-Type'] for ct in ['text', 'json', 'xml']):
+            try:
+                lines = response.content.decode('utf-8').splitlines()
+                if len(lines) > 10:
+                    for line in lines[:5]:
+                        print(line)
+                    print("...")
+                    for line in lines[-5:]:
+                        print(line)
+                else:
+                    for line in lines:
+                        print(line)
+            except UnicodeDecodeError:
+                print("Could not decode response content as UTF-8")
+
         print(f"{'-' * 20} RESPONSE END {'-' * 20}\n")
 
         return response
