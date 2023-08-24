@@ -329,7 +329,7 @@ class DownloadJobCardView(View):
         html = template.render(context, request=request).encode('utf-8')
         result = BytesIO()
 
-        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+        pdf = pisa.pisaDocument(BytesIO(html), result)  # Use the already encoded html
         if not pdf.err:
             return FileResponse(BytesIO(result.getvalue()), content_type='application/pdf',
                                 as_attachment=True, filename=f'{job_number}.pdf')
