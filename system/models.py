@@ -52,10 +52,16 @@ class JobCard(models.Model):
     )
 
     JOB_TYPE_CHOICES = (
-        ('Maintenance', 'Maintenance'),
-        ('Repair', 'Repair'),
+        ('Field Repair', 'Field Repair'),
+        ('Service Centre Repair', 'Service Centre Repair'),
         ('Installation', 'Installation')
     )
+
+    # JOB_TYPE_CHOICES = (
+    #     ('Maintenance', 'Maintenance'),
+    #     ('Repair', 'Repair'),
+    #     ('Installation', 'Installation')
+    # )
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     complaint_or_query = models.CharField(max_length=100,blank=True, null=True)
