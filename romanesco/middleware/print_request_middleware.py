@@ -1,6 +1,5 @@
 import json
 
-
 class PrintRequestMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -22,13 +21,19 @@ class PrintRequestMiddleware:
 
         # Print request body data for POST, PUT methods
         if request.method in ["POST", "PUT"]:
-            try:
-                body = json.loads(request.body)
-                print("Request Body:")
-                print(json.dumps(body, indent=4))
-            except json.JSONDecodeError:
-                print("Could not parse request body as JSON")
-                print(request.body)
+            content_type = request.META.get("CONTENT_TYPE", "")
+            if "application/json" in content_type:
+                try:
+                    body = json.loads(request.body)
+                    print("Request Body:")
+                    print(json.dumps(body, indent=4))
+                except json.JSONDecodeError:
+                    print("Could not parse request body as JSON")
+                    print(request.body)
+            elif "multipart/form-data" in content_type:
+                print("Request contains multi-part form data (possibly file uploads).")
+            else:
+                print(f"Request content type: {content_type}")
 
         # Print request headers
         print("Request headers:")
