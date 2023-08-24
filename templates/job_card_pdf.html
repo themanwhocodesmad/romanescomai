@@ -8,7 +8,7 @@
     <title>PRINT JOBCARD</title>
 
     <!-- Bootstrap CSS -->
-    <link href="../static/css/JobcardCSS.css" rel="stylesheet">
+    <link href="{% static 'css/JobcardCSS.css' %}" rel="stylesheet">
 
     <!-- Custom CSS Overrides -->
     <style type="text/css">
@@ -40,7 +40,8 @@
 <body>
     <!-- Logo and Job Number Section -->
     <div class="logo mb-4">
-        <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="logo">
+        <img src="https://romanesco-production.up.railway.app{% static 'images/logo.png' %}" alt="Site Logo" class="logo">
+
         <div class="job-number">{{ job_card.job_number }}</div>
     </div>
 
@@ -66,15 +67,6 @@
         </div>
     </div>
 
-    <!-- Service Centre Information -->
-    <div class="card mb-4">
-        <div class="card-header">Service Centre Information</div>
-        <div class="card-body">
-            <strong>Address:</strong> Office 3 Rydallviews, 5A Rydall Vale Office Park, 38 Ridge Douglas Saunders Dr, La Lucia Ridge, 4051, KwaZulu Natal, South Africa<br />
-            <strong>Web:</strong> <a href="http://www.magnetoenergy.co.za" target="_blank">www.magnetoenergy.co.za</a><br />
-            <strong>Telephone:</strong> +27 (087) 821 2600<br />
-        </div>
-    </div>
 
     <!-- Repair Information -->
     <div class="card">
@@ -88,6 +80,16 @@
             <strong>Date Completed:</strong> {{ job_card.closed_at }}<br />
             <strong>Closed by:</strong> {{ job_card.closed_by }}<br />
             <strong>Date Closed:</strong> {{ job_card.closed_at }}<br />
+        </div>
+    </div>
+
+    <!-- Service Centre Information -->
+    <div class="card mb-4">
+        <div class="card-header">Service Centre Information</div>
+        <div class="card-body">
+            <strong>Address:</strong> Office 3 Rydallviews, 5A Rydall Vale Office Park, 38 Ridge Douglas Saunders Dr, La Lucia Ridge, 4051, KwaZulu Natal, South Africa<br />
+            <strong>Web:</strong> <a href="http://www.magnetoenergy.co.za" target="_blank">www.magnetoenergy.co.za</a><br />
+            <strong>Telephone:</strong> +27 (087) 821 2600<br />
         </div>
     </div>
 </body>
