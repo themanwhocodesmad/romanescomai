@@ -110,7 +110,7 @@ CORS_ALLOWED_ORIGINS = ['https://mre.up.railway.app/']
 LOGIN_URL = 'web/login/'
 
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
