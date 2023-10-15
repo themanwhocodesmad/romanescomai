@@ -107,7 +107,7 @@ AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with yo
 CSRF_TRUSTED_ORIGINS = ['https://mre.up.railway.app/']
 CORS_ALLOWED_ORIGINS = ['https://mre.up.railway.app/']
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'web/login/'
 
 
 SECURE_SSL_REDIRECT = True
