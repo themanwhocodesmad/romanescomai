@@ -104,8 +104,8 @@ WSGI_APPLICATION = 'romanesco.wsgi.application'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'  # Replace 'your_app_name' with your actual app name
 
-CSRF_TRUSTED_ORIGINS = ['https://mre.up.railway.app/']
-CORS_ALLOWED_ORIGINS = ['https://mre.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://mre.up.railway.app']
+CORS_ALLOWED_ORIGINS = ['https://mre.up.railway.app']
 
 LOGIN_URL = 'web/login/'
 
