@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Knowledge Base</h2>
+    <a href="{% url 'knowledge_base_create' %}">Create New Entry</a>
+    <ul>
+        {% for kb_item in kb_items %}
+            <li><a href="{% url 'knowledge_base_detail' kb_item.id %}">{{ kb_item.title }}</a></li>
+        {% empty %}
+            <li>No entries found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

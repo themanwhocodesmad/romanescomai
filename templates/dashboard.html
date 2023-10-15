@@ -1,43 +1,223 @@
 {% extends "base.html" %}
+{% block head_extra %}
+<style>
+.gradient-green-prime {
+        background-image: linear-gradient(to right, #a3baa7, #33a64a);
+        color: white;
+    }
+    .gradient-green {
+        background-image: linear-gradient(to right, #008080, #32CD32);
+        color: white;
+    }
+    .gradient-orange {
+        background-image: linear-gradient(to right, #008080, orangered);
+        color: white;
+    }
+
+    .gradient-blue {
+        background-image: linear-gradient(to right, #008080, #0000FF);
+        color: white;
+    }
+    .fixed-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* Ensures the section stays on top of other elements */
+        background-color: white; /* Optional: you might want to set a background color */
+        padding-bottom: 20px; /* Optional: Adds some space below the fixed section */
+    }
+    .content-below {
+        padding-top: 200px; /* Adjust this value to provide enough space for the fixed section */
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">Dashboard</h2>
+<h2 class="mb-5">Dashboard</h2>
 
-<!-- User Details Section -->
-<div class="card mb-4">
-    <div class="card-header">
-        User Details
-    </div>
-    <div class="card-body">
-        <p class="mb-1"><strong>Name:</strong> {{ user.full_name }}</p>
-        <p class="mb-1"><strong>Role:</strong> {{ user.role }}</p>
-        <p class="mb-1"><strong>Service Centre:</strong> {{ user.service_center }}</p>
+    {% if messages %}
+    <fieldset class="border p-2 mb-4">
+        <legend class="w-auto">Permission Restriction</legend>
+        {% for message in messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+                <span class="text-danger">{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="reloadDashboard()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </fieldset>
+{% endif %}
+
+<!-- User Details Section in its own row -->
+<div class="row mb-5">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header gradient-green text-white">
+                <i class="fas fa-user"></i> User Details
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="mb-3"><strong>Name:</strong> {{ user.full_name }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-3"><strong>Role:</strong> <span class="badge badge-secondary">{{ user.role }}</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-3"><strong>Service Centre:</strong> {{ user.service_center }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Job Statistics Section -->
-<div class="card">
-    <div class="card-header">
-        Job Statistics
+
+<!-- Job Statistics and RMA Statistics in another row -->
+<div class="row mb-5">
+    <!-- Job Statistics Section -->
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header gradient-blue text-white">
+                <i class="fas fa-clipboard-list"></i> Job Statistics
+            </div>
+            <div class="card-body">
+                <p class="mb-3"><strong>Total Jobs:</strong> <span class="badge badge-dark">{{ total_jobs }}</span></p>
+                <p class="mb-3"><strong>Closed Jobs:</strong> <span class="badge badge-success">{{ closed_jobs }}</span></p>
+                <p class="mb-3"><strong>Open Jobs:</strong> <span class="badge badge-danger">{{ open_jobs }}</span></p>
+                <p class="mb-3"><strong>Out of SLA Jobs:</strong> <span class="badge badge-info">{{ out_of_sla_jobs }}</span></p>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <p class="mb-1"><strong>Total Jobs:</strong> {{ total_jobs }}</p>
-        <p class="mb-1"><strong>Closed Jobs:</strong> {{ closed_jobs }}</p>
-        <p class="mb-1"><strong>Open Jobs:</strong> {{ open_jobs }}</p>
-        <p class="mb-1"><strong>Out of SLA Jobs:</strong> {{ out_of_sla_jobs }}</p>
-    </div>
-</div>
 
     <!-- RMA Statistics Section -->
-<div class="card mb-4">
-    <div class="card-header">
-        RMA Statistics
-    </div>
-    <div class="card-body">
-        <p class="mb-1"><strong>Total RMAs:</strong> {{ total_rmas }}</p>
-        <p class="mb-1"><strong>Closed RMAs:</strong> {{ closed_rmas }}</p>
-        <p class="mb-1"><strong>In Transit RMAs:</strong> {{ in_transit_rmas }}</p>
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header gradient-green text-white">
+                <i class="fas fa-box"></i> RMA Statistics
+            </div>
+            <div class="card-body">
+                <p class="mb-3"><strong>Total RMAs:</strong> <span class="badge badge-dark">{{ total_rmas }}</span></p>
+                <p class="mb-3"><strong>Closed RMAs:</strong> <span class="badge badge-success">{{ closed_rmas }}</span></p>
+                <p class="mb-3"><strong>In Transit RMAs:</strong> <span class="badge badge-warning">{{ in_transit_rmas }}</span></p>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- Urgent Jobs Section -->
+<div class="row mb-5">
+    <!-- Open Job Cards -->
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header shadow gradient-orange text-white">
+            Open Job Cards
+        </div>
+        <div class="card-body">
+           <ul>
+    {% for job_id in open_job_ids %}
+        <li><a href="{% url 'edit_job_card' job_id %}">MRE{{ job_id|add:"-1"|stringformat:"04d" }}</a></li>
+    {% endfor %}
+</ul>
+        </div>
+    </div>
+</div>
+
+<!-- Out of SLA Job Cards -->
+<div class="col-md-6">
+    <div class="card shadow">
+        <div class="card-header gradient-orange text-white">
+            Out of SLA Job Cards
+        </div>
+        <div class="card-body">
+            <ul>
+    {% for job_id in out_of_sla_job_ids %}
+        <li><a href="{% url 'edit_job_card' job_id %}">MRE{{ job_id|add:"-1"|stringformat:"04d" }}</a></li>
+    {% endfor %}
+</ul>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Quick Actions Section -->
+<div class="row mb-5">
+    <!-- Job Cards Actions -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header gradient-green text-white">
+                Job Cards Actions
+            </div>
+            <div class="card-body">
+                <a href="{% url 'create_job' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-plus"></i> Create JobCard
+                </a>
+                <a href="{% url 'open_job_cards' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-folder-open"></i> Open JobCards
+                </a>
+                <a href="{% url 'job_quick_view' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-print"></i> Print JobCard PDF
+                </a>
+                <a href="{% url 'job_history_query' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-history"></i> Job History Audit
+                </a>
+                <a href="{% url 'database-download' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-file-excel"></i> Download Database</a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- RMA Actions -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header gradient-green text-white">
+                RMA Actions
+            </div>
+            <div class="card-body">
+                <a href="{% url 'add_rma' %}" class="btn btn-success btn-block mb-2">
+                    <i class="fas fa-exchange-alt"></i> Create RMA
+                </a>
+                <a href="{% url 'open_rmas' %}" class="btn btn-success btn-block mb-2">
+                    <i class="fas fa-folder"></i> Open RMAs
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Actions -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header gradient-blue text-white">
+                Additional Actions
+            </div>
+            <div class="card-body">
+                <a href="{% url 'add_product' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-box-open"></i> Add Products
+                </a>
+                <a href="{% url 'add_error_code' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-code"></i> Add Error Codes
+                </a>
+                <a href="{% url 'add_vendor' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-handshake"></i> Add Vendors
+                </a>
+                <a href="{% url 'add_region' %}" class="btn gradient-green-prime btn-block mb-2">
+                    <i class="fas fa-map-marker-alt"></i> Add Regions
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+    function reloadDashboard() {
+        location.reload();
+    }
+</script>
 {% endblock %}

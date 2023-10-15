@@ -3,9 +3,16 @@
 {% block head_extra %}  <!-- Add this block if you have a block for extra head content in your base.html -->
 <style>
     .distinct-card {
-        border: 2px solid #333;  <!-- Change the color and width as needed -->
-        border-radius: 10px;  <!-- Making the rounded edges a bit more prominent -->
-        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);  <!-- Adding a slight shadow to enhance the distinction -->
+        border: 2px solid #333;  /* Change the color and width as needed */
+        border-radius: 10px;  /* Making the rounded edges a bit more prominent */
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);  /* Adding a slight shadow to enhance the distinction */
+        margin: 10px 0;  /* Add some vertical margin for separation */
+    }
+
+    .distinct-card .card-title {
+        border-bottom: 1px solid #aaa;  /* Adds a subtle line beneath the job number */
+        padding-bottom: 10px;  /* Adds some padding for visual separation */
+        margin-bottom: 10px;  /* Additional margin for separation */
     }
 </style>
 {% endblock %}

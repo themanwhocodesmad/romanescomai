@@ -72,7 +72,7 @@ REST_KNOX = {
 }
 
 MIDDLEWARE = [
-    'romanesco.middleware.print_request_middleware.PrintRequestMiddleware',
+    # 'romanesco.middleware.print_request_middleware.PrintRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

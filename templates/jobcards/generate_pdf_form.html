@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form id="job-search-form">
+    <input type="text" name="job_number" id="job-number" placeholder="Enter Job Number" required>
+    <button type="button" id="search-button">Search</button>
+</form>
+
+<div id="quick-view"></div>
+
+<button type="button" id="print-button" disabled>Print</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#search-button').on('click', function(){
+            var job_number = $('#job-number').val();
+            $.ajax({
+                url: '/job-quick-view/',
+                method: 'GET',
+                data: {'job_number': job_number},
+                success: function(response){
+                    $('#quick-view').html(response);
+                    $('#print-button').prop('disabled', false);
+                }
+            });
+        });
+
+        $('#print-button').on('click', function(){
+            var job_number = $('#job-number').val();
+            window.location.href = '/generate-pdf/?job_number=' + job_number;
+        });
+    });
+</script>
+
+{% endblock %}

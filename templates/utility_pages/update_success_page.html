@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-success">
+    <p>Job updated successfully!</p>
+    <button class="btn btn-primary" onclick="location.href='{% url 'open_job_cards' %}'">Dismiss</button>
+</div>
+{% endblock %}

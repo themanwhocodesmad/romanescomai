@@ -22,4 +22,5 @@ urlpatterns = [
     path('review-form/<str:job_number>/', CustomerSatisfactionFormView.as_view(), name='customer-satisfaction'),
     path('survey-success/', SurveySuccessView.as_view(), name='survey-success'),
 
+
 ]

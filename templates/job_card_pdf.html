@@ -12,6 +12,7 @@
 
     <!-- Custom CSS Overrides -->
     <style type="text/css">
+
         body {
             padding: 40px;
             font-size: 14pt;
@@ -26,72 +27,111 @@
             margin: 0 auto;
         }
 
+        fieldset {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #33a64a;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 1px;
+            font-size: 12pt;
+        }
+         .header {
+            text-align: center;
+            padding: 0px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+
+        .header .logo img {
+            width: 201px;
+            height: auto;
+            display: inline-block;  /* changed from block to inline-block */
+        }
+
         .job-number {
             text-align: center;
             font-weight: bold;
             font-size: 24pt;
             border-bottom: 3px solid #333;
             padding-bottom: 5px;
-            margin-top: 20px;
+            margin-top: 0px;
+            color: #33a64a;
         }
+
     </style>
 </head>
 
 <body>
-    <!-- Logo and Job Number Section -->
-    <div class="logo mb-4">
-        <img src="https://romanesco-production.up.railway.app{% static 'images/logo.png' %}" alt="Company Logo" class="logo">
-
+    <!-- Header with centered logo -->
+    <div class="header">
+        <div class="logo">
+            <img src="https://romanesco-production.up.railway.app{% static 'images/logo.png' %}" alt="Company Logo">
+        </div>
         <div class="job-number">{{ job_card.job_number }}</div>
     </div>
 
-    <!-- Customer Information -->
-    <div class="card mb-4">
-        <div class="card-header">Customer Information</div>
-        <div class="card-body">
-            <strong>Name:</strong> {{ job_card.customer.name }}<br />
-            <strong>Contact Number:</strong> {{ job_card.customer.contact_number }}<br />
-            <strong>Email:</strong> {{ job_card.customer.email }}<br />
-            <strong>Address:</strong> {{ job_card.customer.address }}<br />
-        </div>
+    <fieldset>
+        <legend>Customer Information</legend><br />
+        <strong>Name:</strong> {{ job_card.customer.name }}<br />
+        <strong>Contact Number:</strong> {{ job_card.customer.contact_number }}<br />
+        <strong>Email:</strong> {{ job_card.customer.email }}<br />
+        <strong>Address:</strong> {{ job_card.customer.address }}<br />
+    </fieldset>
+
+    <fieldset>
+        <legend>Job Information</legend><br />
+        <strong>Product Name:</strong> {{ job_card.product_name }}<br />
+        <strong>Serial Number:</strong> {{ job_card.serial_number }}<br />
+        <strong>Job Type:</strong> {{ job_card.get_job_type_display }}<br />
+        <strong>Complaint or Query:</strong> {{ job_card.complaint_or_query }}<br />
+    </fieldset>
+
+    <fieldset>
+        <legend>Repair Information</legend><br />
+        <strong>Fault Code:</strong> {{ job_card.fault_code }}<br />
+        <strong>Error Code:</strong> {{ job_card.error_code }}<br />
+        <strong>Technician Assessment:</strong> {{ job_card.technician_assessment }}<br />
+        <strong>Technician Notes:</strong> {{ job_card.technician_notes }}<br />
+        <strong>Assigned Technician:</strong> {{ job_card.assigned_technician }}<br />
+        <strong>Date Completed:</strong> {{ job_card.closed_at }}<br />
+        <strong>Closed by:</strong> {{ job_card.closed_by }}<br />
+        <strong>Date Closed:</strong> {{ job_card.closed_at }}<br />
+    </fieldset>
+
+   <!-- Footer Section -->
+    <div class="footer" style="position: fixed; bottom: 0; width: 100%; text-align: center;">
+        <strong>Address:</strong> Office 3 Rydallviews, 5A Rydall Vale Office Park, 38 Ridge Douglas Saunders Dr, La Lucia Ridge, 4051, KwaZulu Natal, South Africa<br />
+        <strong>Web:</strong> <a href="http://www.magnetoenergy.co.za" target="_blank">www.magnetoenergy.co.za</a><br />
+        <strong>Telephone:</strong> +27 (087) 821 2600<br />
+
     </div>
 
-    <!-- Job Information -->
-    <div class="card mb-4">
-        <div class="card-header">Job Information</div>
-        <div class="card-body">
-            <strong>Product Name:</strong> {{ job_card.product_name }}<br />
-            <strong>Serial Number:</strong> {{ job_card.serial_number }}<br />
-            <strong>Job Type:</strong> {{ job_card.get_job_type_display }}<br />
-            <strong>Complaint or Query:</strong> {{ job_card.complaint_or_query }}<br />
-        </div>
+<!-- Signature and Date Printed Section -->
+<div class="signature-section" style="margin-top: 2px; padding-bottom:0px; display: grid; grid-template-columns: 1fr 1fr;">
+    <!-- Signature Area -->
+    <div style="text-align: left; padding-right: 10px;"> <!-- Added padding for spacing -->
+        <div style="border-bottom: 1px solid #000; width: 50%;">&nbsp;</div>
+        <div>Technical Admin Signature (Date Printed: {{ current_date }})</div>
     </div>
+</div>
 
 
-    <!-- Repair Information -->
-    <div class="card">
-        <div class="card-header">Repair Information</div>
-        <div class="card-body">
-            <strong>Fault Code:</strong> {{ job_card.fault_code }}<br />
-            <strong>Error Code:</strong> {{ job_card.error_code }}<br />
-            <strong>Technician Assessment:</strong> {{ job_card.technician_assessment }}<br />
-            <strong>Technician Notes:</strong> {{ job_card.technician_notes }}<br />
-            <strong>Assigned Technician:</strong> {{ job_card.assigned_technician }}<br />
-            <strong>Date Completed:</strong> {{ job_card.closed_at }}<br />
-            <strong>Closed by:</strong> {{ job_card.closed_by }}<br />
-            <strong>Date Closed:</strong> {{ job_card.closed_at }}<br />
-        </div>
-    </div>
-
-    <!-- Service Centre Information -->
-    <div class="card mb-4">
-        <div class="card-header">Service Centre Information</div>
-        <div class="card-body">
-            <strong>Address:</strong> Office 3 Rydallviews, 5A Rydall Vale Office Park, 38 Ridge Douglas Saunders Dr, La Lucia Ridge, 4051, KwaZulu Natal, South Africa<br />
-            <strong>Web:</strong> <a href="http://www.magnetoenergy.co.za" target="_blank">www.magnetoenergy.co.za</a><br />
-            <strong>Telephone:</strong> +27 (087) 821 2600<br />
-        </div>
-    </div>
 </body>
 
 </html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+    .bold-entry {
+        font-weight: bold;
+        font-size: 1em;
+        color: #33a64a;
+    }
+
+    .distinct-field {
+        background-color: #FFFFFF;
+        border: 1px solid #ddd;
+        padding: 1em;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    legend {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #33a64a;
+    }
+
+    fieldset {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+</style>
+<script>
+    function clearContent() {
+        window.location.href = "{% url 'job_history_query' %}";
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Job History: {{ job_card.job_number }}</h2>
+    </div>
+
+    <fieldset class="mb-4">
+        <legend>History & Audits</legend>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Changed By</th>
+                    <th>Change Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>{{ entry.timestamp }}</td>
+                    <td>{{ entry.changed_by }}</td>
+                    <td>{{ entry.change_description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+    <div class="form-group text-center">
+        <input type="button" value="Clear" class="btn btn-secondary" onclick="clearContent()">
+    </div>
+</div>
+{% endblock %}

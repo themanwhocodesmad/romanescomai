@@ -32,6 +32,19 @@ body {
   overflow: hidden; /* To make sure inner elements do not overflow the box */
 }
 
+.distinct-card {
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+}
+
+.distinct-card .card-title {
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
 .card-header {
   font-size: 16px;
   font-weight: bold;
@@ -53,7 +66,7 @@ strong {
     font-size: 12px;
   }
 
-  .card {
+  .card, .distinct-card {
     box-shadow: none; /* Remove shadow for print */
   }
 }

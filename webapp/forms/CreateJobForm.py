@@ -23,6 +23,13 @@ class JobCardForm(forms.ModelForm):
         label='Assigned Technician'
     )
 
+    date_of_query = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    date_of_purchase = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+
     class Meta:
         model = JobCard
         fields = ['complaint_or_query', 'error_code', 'date_of_query',

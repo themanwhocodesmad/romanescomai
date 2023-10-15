@@ -1,0 +1,34 @@
+<!-- job_cards.html -->
+<div class="row mb-5">
+    <!-- Open Job Cards -->
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header">
+                Open Job Cards
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for job_card in open_job_cards %}
+                        <li><a href="{% url 'edit_job_card' job_card.id %}">{{ job_card.job_number }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Out of SLA Job Cards -->
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header">
+                Out of SLA Job Cards
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for job_card in out_of_sla_job_cards %}
+                        <li><a href="{% url 'edit_job_card' job_card.id %}">{{ job_card.job_number }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

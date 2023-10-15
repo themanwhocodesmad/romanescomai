@@ -90,7 +90,7 @@ class JobCard(models.Model):
     closed_at = models.DateTimeField(blank=True, null=True)
     job_number = job_numberField(unique=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default="Medium")
-    job_type = models.CharField(max_length=15, choices=JOB_TYPE_CHOICES, default="Repair")
+    job_type = models.CharField(max_length=50, choices=JOB_TYPE_CHOICES, default="Repair")
     service_location = models.CharField(max_length=50, blank=True, null=True)
     follow_up_required = models.BooleanField(default=False)
 
@@ -132,9 +132,20 @@ def job_card_directory(instance, filename):
 
 
 class Image(models.Model):
+    SEQUENCE_CHOICES = [
+        (1, 'First Image'),
+        (2, 'Second Image'),
+        (3, 'Third Image')
+    ]
+
     description = models.TextField(blank=True, null=True)
     job_card = models.ForeignKey(JobCard, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to=job_card_directory, blank=True, null=True)
+    sequence = models.PositiveSmallIntegerField(choices=SEQUENCE_CHOICES)  # New field to distinguish between images
+
+    class Meta:
+        unique_together = ['job_card',
+                           'sequence']  # Ensure that there's only one image of each sequence for every JobCard
 
     def __str__(self):
         return f"{self.job_card.job_number} - {self.job_card.customer.name} | {self.description}"

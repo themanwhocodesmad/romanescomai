@@ -1,13 +1,17 @@
 # views.py
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.forms import model_to_dict
 from django.shortcuts import render, redirect
 
 from rma.models import RMA
 from webapp.forms import ConvertRMAForm, RMAForm
+from webapp.permissions import role_required
 
 
+@login_required
+@role_required('Technical Admins', 'Hub Controller')
 def convert_rma(request, rma_id):
     rma = RMA.objects.get(id=rma_id)
     if request.method == 'POST':
@@ -42,6 +46,8 @@ from django.shortcuts import render, redirect
 
 # views.py
 
+@login_required
+@role_required('Technical Admins', 'Hub Controller')
 def open_rmas(request):
     rm_as = RMA.objects.filter(converted_or_closed=False)
     context = {'rm_as': rm_as}
@@ -50,6 +56,8 @@ def open_rmas(request):
 
 # views.py
 
+@login_required
+@role_required('Technical Admins', 'Hub Controller')
 def edit_rma(request, rma_id):
     rma = RMA.objects.get(id=rma_id)
     if request.method == 'POST':
@@ -70,6 +78,8 @@ def edit_rma(request, rma_id):
     return render(request, 'rma/edit_rma.html', {'form': form})
 
 
+@login_required
+@role_required('Technical Admins', 'Hub Controller')
 def add_rma(request):
     if request.method == "POST":
         form = RMAForm(request.POST)

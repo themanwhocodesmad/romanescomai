@@ -1,0 +1,13 @@
+<!-- job_card_quick_view.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Job Quick View</h2>
+<!-- Display job card details -->
+<p>Job Number: {{ job_card.job_number }}</p>
+<p>Customer Name: {{ job_card.customer.name }}</p>
+<p>Product Name: {{ job_card.product_name }}</p>
+<p>Complaint: {{ job_card.complaint_or_query }}</p>
+
+<a href="{% url 'generate_pdf' job_card.id %}">Generate PDF</a>
+{% endblock %}

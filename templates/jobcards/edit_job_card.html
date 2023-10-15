@@ -3,6 +3,20 @@
 
 {% block head_extra %}
 <style>
+    .bold-entry {
+        font-weight: bold;
+        font-size: 1em;
+        color: #33a64a;
+    }
+
+    .distinct-field {
+        background-color: #FFFFFF;
+        border: 1px solid #ddd;
+        padding: 1em;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    }
+
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -10,7 +24,7 @@
     legend {
         font-weight: bold;
         margin-bottom: 1rem;
-        color: #555;
+        color: #33a64a;
     }
 
     fieldset {
@@ -22,38 +36,85 @@
 </style>
 <script>
     function redirectToCloseJob() {
-    window.location.href = "{% url 'close_job_card' job_card.id %}";
-}
-
+        window.location.href = "{% url 'close_job_card' job_card.id %}";
+    }
 </script>
 {% endblock %}
 
 {% block content %}
-
 <div class="container mt-5">
     <div class="text-center mb-4">
         <h2>Edit Job Card: {{ job_card.job_number }}</h2>
     </div>
 
-    <form method="post" id="edit-job-form">
+    <form method="post" id="edit-job-form" enctype="multipart/form-data">
         {% csrf_token %}
 
         <fieldset class="mb-4">
             <legend>Customer Information</legend>
-            {% for field in customer_form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field|add_class:"form-control" }}
+            <div class="row">
+                {% for field in customer_form %}
+                <div class="col-md-6 form-group">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </fieldset>
 
         <fieldset class="mb-4">
-            <legend>Job Card Details</legend>
-            {% for field in job_card_form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field|add_class:"form-control" }}
+    <legend>Job Card Details</legend>
+        <div class="row">
+            <div class="col-md-6 form-group">
+        <label>Product Name</label>
+    <p class="bold-entry">{{ job_card.product_name }}</p>
+        <input type="hidden" name="product_name" value="{{ job_card.product_name }}">
+    </div>
+
+
+    <div class="col-md-6 form-group">
+       <label>Region</label>
+    <p class="bold-entry">{{ job_card.region }}</p>
+        <input type="hidden" name="region" value="{{ job_card.region }}">
+    </div>
+    <div class="col-md-6 form-group">
+        <label>Vendor Name</label>
+    <p class="bold-entry">{{ job_card.vendor_name }}</p>
+        <input type="hidden" name="vendor_name" value="{{ job_card.vendor_name }}">
+    </div>
+    <div class="col-md-6 form-group">
+        <label>Assigned Technician</label>
+    <p class="bold-entry">{{ job_card.assigned_technician }}</p>
+        <input type="hidden" name="assigned_technician" value="{{ job_card.assigned_technician }}">
+    </div>
+
+    </div> <!-- This closing tag was missing -->
+    <div class="row">
+        {% for field in job_card_form %}
+        <div class="col-md-6 form-group">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+        </div>
+        {% endfor %}
+    </div>
+</fieldset>
+
+
+<!-- ... Other parts of the template ... -->
+
+        <fieldset class="mb-4">
+            <legend>Upload Images</legend>
+            {{ image_formset.management_form }}
+            {% for form in image_formset %}
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                    {{ form.image|add_class:"form-control" }}
+                </div>
+                <div class="col-md-8 form-group">
+                    <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                    {{ form.description|add_class:"form-control" }}
+                </div>
             </div>
             {% endfor %}
         </fieldset>
@@ -61,9 +122,30 @@
         <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Update</button>
             <button type="button" class="btn btn-danger" onclick="redirectToCloseJob()">Close Job</button>
-
         </div>
     </form>
-</div>
 
+<fieldset class="mb-4">
+    <legend>History & Audits</legend>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Changed By</th>
+                <th>Change Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in history %}
+            <tr>
+                <td>{{ entry.timestamp }}</td>
+                <td>{{ entry.changed_by }}</td>
+                <td>{{ entry.change_description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</fieldset>
+
+</div>
 {% endblock %}

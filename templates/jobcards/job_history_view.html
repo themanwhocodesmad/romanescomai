@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<!-- Your existing styles and scripts -->
+<script>
+    function clearContent() {
+        window.location.href = "{% url 'job_history_query' %}";
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Job History</h2>
+    </div>
+
+    <form method="post" action="{% url 'job_history_view' job_card.id %}" id="job-history-form">
+        {% csrf_token %}
+        <fieldset class="mb-4">
+            <legend>Enter Job Number</legend>
+            <div class="form-group">
+                <label for="{{ form.job_number.id_for_label }}" class="form-label">{{ form.job_number.label }}</label>
+                {{ form.job_number|add_class:"form-control" }}
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Search" class="btn btn-primary">
+            </div>
+        </fieldset>
+    </form>
+
+    {% if job_card %}
+    <fieldset class="mb-4">
+        <legend>History & Audits for {{ job_card.job_number }}</legend>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Changed By</th>
+                    <th>Change Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>{{ entry.timestamp }}</td>
+                    <td>{{ entry.changed_by }}</td>
+                    <td>{{ entry.change_description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="form-group text-center">
+            <input type="button" value="Clear" class="btn btn-secondary" onclick="clearContent()">
+        </div>
+    </fieldset>
+    {% endif %}
+</div>
+{% endblock %}

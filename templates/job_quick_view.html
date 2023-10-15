@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+
+.recent-pdfs-card .card-header {
+        background-color: #28a745;  /* Bootstrap's green */
+        color: #ffffff;
+    }
+
+    .bold-entry {
+        font-weight: bold;
+        font-size: 1em;
+        color: #33a64a;
+    }
+
+    .distinct-field {
+        background-color: #FFFFFF;
+        border: 1px solid #ddd;
+        padding: 1em;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    legend {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #33a64a;
+    }
+
+    fieldset {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-iBB9/YOAVQI1KjWICOWIDdacVIQNN812T9KK/ybbx5B5lA5P5e4/sgFhWpmtZd8nq" crossorigin="anonymous">
+
+<script>
+    function clearContent() {
+        window.location.href = "{% url 'job_quick_view' %}";
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h2>Job Quick View</h2>
+            </div>
+
+            {% if not job_card %}
+            <form method="post" action="{% url 'job_quick_view' %}" id="job-quick-view-form">
+                {% csrf_token %}
+                <fieldset class="mb-4">
+                    <legend>Enter Job Number</legend>
+                    <div class="form-group">
+                        <label for="{{ form.job_number.id_for_label }}" class="form-label">{{ form.job_number.label }}</label>
+                        {{ form.job_number|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" value="Search" class="btn btn-primary">
+                    </div>
+                </fieldset>
+            </form>
+            {% endif %}
+
+            <div id="job-info-container">
+    {% if job_card %}
+        <fieldset class="mb-4">
+            <legend>Details for {{ job_card.job_number }}</legend>
+            <div class="distinct-field">
+                <p><strong>Customer Name:</strong> {{ job_card.customer.name }}</p>
+                <p><strong>Product Name:</strong> {{ job_card.product_name }}</p>
+                <p><strong>Complaint or Query:</strong> {{ job_card.complaint_or_query }}</p>
+                <p><strong>Technician Assessment:</strong> {{ job_card.technician_assessment }}</p>
+                <p><strong>Completed Date:</strong>
+                    {% if job_card.completed_date %}
+                        {{ job_card.completed_date }}
+                    {% else %}
+                        Job not yet completed
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group text-center">
+                <a href="{% url 'generate_pdf' job_card.id %}" class="btn btn-primary">Print JobCard PDF</a>
+            </div>
+            <div class="form-group text-center">
+                <input type="button" value="Clear" class="btn btn-secondary" onclick="clearContent()">
+            </div>
+        </fieldset>
+   {% else %}
+        {% if form.submitted %}
+            <div class="alert alert-danger">
+                Job card does not exist, try again.
+            </div>
+            <div class="form-group text-center">
+                <input type="button" value="Clear" class="btn btn-secondary" onclick="clearContent()">
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+  <!-- End of main content column -->
+        </div>
+
+        <!-- Start a new row for the Recent PDFs section -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4 recent-pdfs-card">
+                <!-- Add the icon to the card header -->
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-file-pdf"></i> Recent PDFs
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for record in recent_pdfs %}
+                            <li class="list-group-item">
+                                <a href="{% url 'generate_pdf' record.job_card.id %}">
+                                    {{ record.job_card.job_number }} - {{ record.timestamp|date:"SHORT_DATETIME_FORMAT" }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>  <!-- End of recent PDFs column -->
+    </div>  <!-- End of second row -->
+</div>  <!-- End of container-fluid -->
+
+{% endblock %}

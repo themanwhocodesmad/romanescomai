@@ -62,6 +62,8 @@ def logout_view(request):
 
 from django.urls import reverse
 
+from django.contrib import messages
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -85,15 +87,16 @@ def login_view(request):
                     value=token,
                     expires=expiration,
                     httponly=True,
-                    secure=True  # Ensure cookie is only sent over HTTPS (omit if working locally without HTTPS)
+                    secure=True  # Ensure the cookie is only sent over HTTPS (omit if working locally without HTTPS)
                 )
                 return response
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
             messages.error(request, 'Invalid username or password.')
+    else:
+        form = AuthenticationForm()
 
-    form = AuthenticationForm()
     return render(request, 'utility_pages/login.html', {'form': form})
 
 #

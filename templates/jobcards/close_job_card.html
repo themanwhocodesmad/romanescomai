@@ -8,7 +8,7 @@
     }
 
     .form-control {
-        width: 45%;  /* Ensure the fields take up full width */
+        width: 100%;  /* Ensure the fields take up full width */
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -22,16 +22,20 @@
     <div class="text-center mb-4">
         <h2>Close Job Card: {{ job_card.job_number }}</h2>
     </div>
-    
+
     <form method="post">
         {% csrf_token %}
-        
-        {% for field in form %}
-        <div class="form-group">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            {{ field|add_class:"form-control" }}
-        </div>
-        {% endfor %}
+
+        <fieldset class="mb-4" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);">
+            <legend style="font-weight: bold; margin-bottom: 1rem; color: #555;">Job Closure Details</legend>
+
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+            </div>
+            {% endfor %}
+        </fieldset>
 
         <div class="form-group text-center">
             <button type="submit" class="btn btn-danger">Close Job Card</button>

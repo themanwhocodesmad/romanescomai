@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-success">
+    <p>Item added successfully!</p>
+    <button class="btn btn-primary" onclick="goBack()">Dismiss</button>
+</div>
+
+<script>
+function goBack() {
+    window.history.back();  // This will navigate back to the previous page in the browser's history.
+}
+</script>
+{% endblock %}

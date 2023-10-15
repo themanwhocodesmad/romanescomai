@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+    .bold-entry {
+        font-weight: bold;
+        font-size: 1em;
+        color: #33a64a;
+    }
+
+    .distinct-field {
+        background-color: #FFFFFF;
+        border: 1px solid #ddd;
+        padding: 1em;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    legend {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #33a64a;
+    }
+
+    fieldset {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h2>Create New Knowledge Base Entry</h2>
+            </div>
+
+            <form method="post" action="" id="create-entry-form">
+                {% csrf_token %}
+                <fieldset class="mb-4">
+                    <legend>Entry Details</legend>
+                    <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+                        {{ form.title|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}</label>
+                        {{ form.content|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

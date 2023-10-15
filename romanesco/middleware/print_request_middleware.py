@@ -47,7 +47,7 @@ class PrintRequestMiddleware:
         # Optionally, print some response details
         print(f"\n{'-' * 20} RESPONSE START {'-' * 20}")
         print(f"Response status code: {response.status_code}")
-        print(f"Response content type: {response['Content-Type']}")
+        print(f"Response content type: {response.headers.get('Content-Type', 'Unknown')}")  # updated line
 
         # If response content type is text-based, print the first 5 and last 5 lines
         if any(ct in response['Content-Type'] for ct in ['text', 'json', 'xml']):

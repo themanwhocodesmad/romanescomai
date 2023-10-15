@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ kb_item.title }}</h2>
+    <p>{{ kb_item.content }}</p>
+    <p>Author: {{ kb_item.author }}</p>
+    <p>Date Created: {{ kb_item.created_at|date:"F j, Y" }}</p>  <!-- Formats the date as "January 1, 2023" -->
+    <a href="{% url 'knowledge_base_list' %}" class="btn btn-secondary">Back to Knowledge Base</a>
+{% endblock %}

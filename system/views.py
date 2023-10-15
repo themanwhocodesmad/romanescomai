@@ -237,6 +237,7 @@ class UpdateJobView(APIView):
 
 
 def DatabaseDownloadView(request):
+    group_required = [u"Technical Admin", u"Field Technician"]
     # permission_classes = [IsAuthenticated]
 
     job_cards = JobCard.objects.all()

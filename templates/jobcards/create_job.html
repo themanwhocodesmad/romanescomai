@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% block head_extra %}
+<style>
+.gradient-green-prime {
+        background-image: linear-gradient(to right, #a3baa7, #33a64a);
+        color: white;
+    }
+    .gradient-green {
+        background-image: linear-gradient(to right, #008080, #32CD32);
+        color: white;
+    }
+    .gradient-orange {
+        background-image: linear-gradient(to right, #008080, orangered);
+        color: white;
+    }
 
-
+    .gradient-blue {
+        background-image: linear-gradient(to right, #008080, #0000FF);
+        color: white;
+    }
+    .fixed-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* Ensures the section stays on top of other elements */
+        background-color: white; /* Optional: you might want to set a background color */
+        padding-bottom: 20px; /* Optional: Adds some space below the fixed section */
+    }
+    .content-below {
+        padding-top: 200px; /* Adjust this value to provide enough space for the fixed section */
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 ">
             <!-- Heading at the top-center of the form -->
             <div class="text-center mb-4">
                 <h2>Create New Job</h2>
@@ -14,31 +45,37 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <h3>Customer Details</h3>
-                <div class="mb-3">
-                    {% for field in customer_form %}
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        {{ field|add_class:"form-control" }}
-                        {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-                        <div class="mb-3"></div> <!-- Bootstrap spacing -->
-                    {% endfor %}
-                </div>
+                <fieldset class="mb-4" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);">
+                    <legend style="font-weight: bold; margin-bottom: 1rem; color: #555;">Customer Details</legend>
+                    <div class="row" >
+                        {% for field in customer_form %}
+                        <div class="col-md-6 mb-3"> <!-- Column wrapper for fields -->
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
 
-                <h3>Job Card Details</h3>
-                <div class="mb-3">
-                    {% for field in job_form %}
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        {{ field|add_class:"form-control" }}
-                        {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-                        <div class="mb-3"></div> <!-- Bootstrap spacing -->
-                    {% endfor %}
-                </div>
+                <fieldset class="mb-4" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);">
+                    <legend style="font-weight: bold; margin-bottom: 1rem; color: #555;">Job Card Details</legend>
+                    <div class="row">
+                        {% for field in job_form %}
+                        <div class="col-md-6 mb-3"> <!-- Column wrapper for fields -->
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
 
-                <div class="text-center">
+                <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary">Create Job Card</button>
                 </div>
             </form>
