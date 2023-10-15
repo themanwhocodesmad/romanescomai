@@ -21,7 +21,7 @@
             <form method="post" action="{% url 'job_history_query' %}" id="job-history-query-form">
                 {% csrf_token %}
                 <fieldset class="mb-4">
-                    <legend>Enter Job Number</legend>
+                    <legend>Enter Job Number (E.g. MRE0000)</legend>
                     <div class="form-group">
                         <label for="{{ form.job_number.id_for_label }}" class="form-label">{{ form.job_number.label }}</label>
                         {{ form.job_number|add_class:"form-control" }}
