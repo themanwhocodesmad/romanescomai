@@ -31,6 +31,17 @@ class ConvertRMAForm(forms.ModelForm):
 class RMAForm(forms.ModelForm):
     item_code = forms.ModelChoiceField(queryset=Products.objects.all(), label='Product Name')
 
+    # Define your date fields explicitly with DateInput widget
+    date_returned = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    inv_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    received_at_warehouse = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+
     class Meta:
         model = RMA
         fields = ['item_code', 'date_returned', 'company_name', 'contact_person', 'reason', 'customer_name',
