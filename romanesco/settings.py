@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'resources',
     'rma',
     'bootstrap4',
-'widget_tweaks',
+    'widget_tweaks',
     #'channels',
     #'notifications'
 ]
